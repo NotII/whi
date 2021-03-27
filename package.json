@@ -1,0 +1,22 @@
+{
+  "name": "whi",
+  "version": "1.0.0",
+  "description": "Wrapper for some of the WeHeartIt website features",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/connuh/whi.git"
+  },
+  "author": "Conner",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/connuh/whi/issues"
+  },
+  "homepage": "https://github.com/connuh/whi#readme",
+  "dependencies": {
+    "phin": "^3.5.1"
+  }
+}
