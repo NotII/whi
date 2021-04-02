@@ -46,10 +46,7 @@ class Account {
         method: "POST",
         url: `${BASE_URL}/${ENDPOINTS["users"]}`,
         headers: {
-          "Content-Type": "application/json",
-          // "User-Agent": "weheartit/12.1.1.2021031214 (iPhone; iOS 14.4.1; Scale/3.00)",
-          // "X-WeHeartIt-Client": "iOS Efron;version=12.1.1.2021031214",
-          // "X-WeHeartIt-Language": "en-GB"
+          "Content-Type": "application/json"
         },
         data: JSON.stringify({
           client_id: Util.generateString(32),
@@ -61,13 +58,17 @@ class Account {
             password,
             email
           }
-        })
+        }),
+        core: {
+          agent: agent.agent
+        }
       }))).body.toString());
 
+      console.log(body.id)
       if(body.id) return true;
       return false;
-    } catch(e) {
-      throw e;
+    } catch {
+      throw "Bad response";
     }
   }
 }
