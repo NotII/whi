@@ -34,13 +34,13 @@ class Account {
   }
 
   /**
-   * 
+   * @param {String} name
    * @param {String} username 
    * @param {String} password 
    * @param {String} email 
    * @returns {Promise<>}
    */
-  static async register(username, password, email) {
+  static async register(name, username, password, email) {
     try {
       let body = JSON.parse(await (await(p({
         method: "POST",
@@ -53,7 +53,7 @@ class Account {
           signature: Util.generateSignature(username, email),
           user: {
             age_verified: true,
-            name: "Conner Jackson",
+            name,
             username,
             password,
             email
