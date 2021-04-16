@@ -3,7 +3,7 @@
 </p>
 
 # WHI - an API wrapper. ❤️
-### API Wrapper / Account Checker (with registration) for [WHI](https://weheartit.com) written in Node.js!a
+### API Wrapper / Account Checker (with registration) for [WHI](https://weheartit.com) written in Node.js!
 ---
 ### Setup
 
