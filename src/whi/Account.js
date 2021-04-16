@@ -28,8 +28,8 @@ class Account {
 
       if(!body.errors.username) return true;
       return false;
-    } catch(e) {
-      throw e;
+    } catch {
+      throw `Unable to check username! (${username})`;
     }
   }
 
@@ -58,15 +58,16 @@ class Account {
             password,
             email
           }
-        }),
-        core: {
-          agent: agent.agent
-        }
+        })
       }))).body.toString());
 
-      console.log(body.id)
-      if(body.id) return true;
-      return false;
+      return {
+        success: (body.id ? true : false),
+        name,
+        username,
+        email,
+        password
+      };
     } catch {
       throw "Bad response";
     }
