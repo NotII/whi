@@ -5,6 +5,12 @@
 # WHI - an API wrapper. ❤️
 ### API Wrapper / Account Checker (with registration) for [WHI](https://weheartit.com) written in Node.js!
 ---
+### TO-DO: 
+- [x] Username Checking
+- [x] Account Registration
+    -  [ ] Proxy Support
+- [ ] Image Scraping
+
 ### Setup
 
 1. You need to install [Node.js](https://nodejs.org)
