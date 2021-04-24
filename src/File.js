@@ -10,6 +10,7 @@ const fs = require("fs");
 class File {
   /**
    * @param {String} path 
+   * @returns {Promise<String>}
    */
   static load(path) {
     return new Promise((resolve, reject) => {
@@ -30,6 +31,7 @@ class File {
   /**
    * @param {String} path 
    * @param {String} data 
+   * @returns {Boolean}
    */
   static save(path, data) {
     try {

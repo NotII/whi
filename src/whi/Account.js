@@ -38,7 +38,7 @@ class Account {
    * @param {String} username 
    * @param {String} password 
    * @param {String} email 
-   * @returns {Promise<>}
+   * @returns {Promise<Object>}
    */
   static async register(name, username, password, email) {
     try {
