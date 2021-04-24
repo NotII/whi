@@ -4,7 +4,6 @@
  */
 
 // Dependencies
-const p = require("phin");
 const crypto = require("crypto");
 
 // Variables
