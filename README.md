@@ -9,7 +9,8 @@
 - [x] Username Checking
 - [x] Account Registration
     -  [ ] Proxy Support
-- [ ] Image Scraping
+- [x] Image Scraping
+    - [ ] Support in Tool
 
 ### Setup
 
