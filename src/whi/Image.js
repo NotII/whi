@@ -8,7 +8,7 @@ const p = require("phin");
 
 // Variables
 const BASE_URL = "https://weheartit.com";
-const regex = /https:\/\/data.whicdn.com\/images\/.*\/superthumb.\w+/g;
+const REGEX = /https:\/\/data.whicdn.com\/images\/.*\/superthumb.\w+/g;
 
 // Image Class
 class Image {
@@ -24,7 +24,7 @@ class Image {
     if(req.statusCode === 302) throw `Unable to fetch page! (Page -> ${page})`;
     
     if(body.indexOf("superthumb") !== -1) {
-      let matched = body.match(regex);
+      let matched = body.match(REGEX);  
       
       if(matched && matched.length > 0) return matched;
       return false;
