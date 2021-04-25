@@ -8,6 +8,7 @@ const crypto = require("crypto");
 
 // Variables
 const secret = "b5a67e9f6995bc89ca0d7257a30bfe08b4780250712e939d781662650d7c67ed";
+const modes = [ "scrape", "check" ];
 
 // Util Class
 class Util {
@@ -37,6 +38,24 @@ class Util {
     for(let i = 0; i < len; i++) str += charset[Math.floor(Math.random() * charset.length)];
 
     return str;
+  }
+
+  /**
+   * @param {Object} config 
+   */
+  static parseConfig({ mode, scrape, check }) {
+    if(modes.indexOf(mode.toLowerCase()) === -1) throw `Please provide a valid mode! (${modes.join(", ")})`;
+
+    if(!scrape.user 
+      || isNaN(scrape.page) 
+      || !scrape.webhook 
+      || scrape.webhook.indexOf("discord.com/api/webhooks") === -1
+    ) throw `Invalid config! (type -> scrape)`;
+
+    if(typeof(check.register) !== "boolean"
+      || !check.wordlist
+      || !check.output
+    ) throw `Invalid config! (type -> check)`; 
   }
 }
 
