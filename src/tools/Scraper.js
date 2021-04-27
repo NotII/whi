@@ -42,10 +42,14 @@ class Scraper extends EventEmitter {
     this.scraping = true;
 
     while(this.scraping) {
-      this.emit("images", {
-        images: await(Image.getImages(this.user, this.page)),
-        page: this.page
-      });
+      try {
+        this.emit("images", {
+          images: await(Image.getImages(this.user, this.page)),
+          page: this.page
+        });
+      } catch(e) {
+        this.emit("error", e);
+      }
 
       if(this.page === this.end) {
         this.emit("finished");
