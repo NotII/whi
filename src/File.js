@@ -14,14 +14,30 @@ class File {
    */
   static load(path) {
     return new Promise((resolve, reject) => {
+      /**
+       * We create two variables named `data` and `stream`
+       * data is an empty string and `stream` is a read stream
+       * from the `path` variable.
+       */
       let data = "", stream = fs.createReadStream(path);
 
+      /**
+       * When the stream receives some data, we
+       * will append it to the `data` variable
+       */
       stream.on("data", d => data += d.toString());
   
+      /**
+       * When the stream ends, we will resolve the promise
+       * with `data` stripped and filtered
+       */
       stream.on("end", () => {
         return resolve(data.replace(/\r/g, "").split("\n").filter(p => p.length > 0));
       });
   
+      /**
+       * If there is an error, we will reject the promise.
+       */
       stream.on("error", e => {
         return reject(e);
       });
@@ -35,9 +51,16 @@ class File {
    */
   static save(path, data) {
     try {
+      /**
+       * Append `data` + "\n" to `path`
+       * and return true
+       */
       fs.appendFileSync(path, `${data}\n`);
       return true;
     } catch {
+      /**
+       * If there is an error, we will return false
+       */
       return false;
     }
   }
