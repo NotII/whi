@@ -58,6 +58,12 @@ class Util {
     ) throw `Invalid config! (type -> check)`; 
   }
 
+  /**
+   * 
+   * @param {Object} array 
+   * @param {Number} size 
+   * @returns {Object}
+   */
   static chunk(array = [ ], size = 10) {
     let arr = [ ];
   
