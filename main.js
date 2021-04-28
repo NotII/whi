@@ -17,14 +17,15 @@ try {
 
   if(config.mode == "scrape") {
     let S = new Scraper(config.scrape.user, config.scrape.page, config.scrape.pages),
-        w = 0;
+        w = 0, t = 0;
 
     S.once("scraping", s => {
       Logger.warn("scraper", `Scraping ${s.user} | Pages -> ${s.page} - ${s.end}`);
     });
 
     S.on("images", async i => {
-      Logger.info("scraper", `Scraped ${i.images.length} ${i.images.length === 1 ? "image" : "images"} from page ${i.page}`);
+      t += i.images.length;
+      Logger.info("scraper", `Scraped ${i.images.length} ${i.images.length === 1 ? "image" : "images"} from page ${i.page} (Total -> ${t})`);
 
       for(const c of Util.chunk(i.images)) {
         if(w == config.scrape.webhook.length) w = 0;
