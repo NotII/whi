@@ -22,12 +22,12 @@ class Discord {
       },
       data: JSON.stringify({
         embeds: images.map(i => i = {
-          title: "WeHeartIt Scraper",
+          color: 11962342,
           image: {
             url: i
           },
           footer: {
-            text: "Scraper by cnr ❤️"
+            text: "Scraper by cnr ❤️ (@connuh on GitHub)"
           }
         })
       })
