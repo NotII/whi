@@ -14,6 +14,10 @@ class Discord {
    * @returns {Boolean} 
    */
   static async post(webhook, images) {
+    /**
+     * Make a POST requeest to the `webhook` variable
+     * we're POSTing data as indicated by the Content-Type header
+     */
     let body = await(await p({
       method: "POST",
       url: webhook,
@@ -33,6 +37,11 @@ class Discord {
       })
     })).body.toString();
 
+    /**
+     * If the size of the body is 0 bytes
+     * that means the webhook sent succesfully
+     * and we can return true, otherwise return false
+     */
     if(body.length === 0) return true;
     return false;
   }
