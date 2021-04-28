@@ -4,7 +4,10 @@
  */
 
 // Utils
+const Logger = require("./src/Logger");
 const Util = require("./src/Util");
+const Scraper = require("./src/tools/Scraper");
+const Discord = require("./src/Discord");
 
 // Variables
 const config = require("./data/config.json");
@@ -13,10 +16,30 @@ try {
   Util.parseConfig(config);
 
   if(config.mode == "scrape") {
-    
+    const S = new Scraper(config.scrape.user, config.scrape.page, config.scrape.pages);
+
+    S.once("scraping", s => {
+      Logger.warn("scraper", `Scraping ${s.user} | Pages -> ${s.page} - ${s.end}`);
+    });
+
+    S.on("images", async i => {
+      Logger.info("scraper", `Scraped ${i.images.length} ${i.images.length === 1 ? "image" : "images"} from page ${i.page}`);
+
+      for(const c of Util.chunk(i.images)) if(await Discord.post(config.scrape.webhook[Math.floor(Math.random() * config.scrape.webhook.length)], c)) {
+        Logger.info("scraper", `Sent ${c.length} ${c.length === 1 ? "image" : "images"} to Discord!`);
+      } else {
+        Logger.warn("scraper", `Unable to log to Discord!`);
+      }
+    });
+
+    S.once("finished", () => {
+      Logger.warn("scraper", "Finished!")
+    });
+
+    S.scrape();
   } else {
-    
+    Logger.error("checker", "Support soon!");
   }
 } catch(e) {
-  console.log(e)
+  Logger.error("main", e);
 }
