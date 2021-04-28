@@ -10,7 +10,7 @@
 - [x] Account Registration
     -  [ ] Proxy Support
 - [x] Image Scraping
-    - [ ] Support in Tool
+    - [x] Support in Tool
 
 ### Setup
 
