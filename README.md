@@ -16,13 +16,14 @@
 
 1. You need to install [Node.js](https://nodejs.org)
   
-    - You need to install [Node.js](https://nodejs.org)
+    - You can get Node.js [here](https://nodejs.org) (14.XX.XX LTS)
 2. Install the Dependencies
   
-    - Run `npm i` in your terminal.
-3. Populate the wordlist
-
-    - Put usernames into `data/wordlist.txt`
+    - Navigate to the directory where the source code is.
+    - Run `npm i` OR `yarn install`
+3. Modify the config
+    
+    - Edit `data/config.json`
 4. Run the program
 
     - Run `node main` in your terminal.
