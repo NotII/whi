@@ -16,16 +16,16 @@
 
 1. You need to install [Node.js](https://nodejs.org)
   
-  - You need to install [Node.js](https://nodejs.org)
+    - You need to install [Node.js](https://nodejs.org)
 2. Install the Dependencies
   
-  - Run `npm i` in your terminal.
+    - Run `npm i` in your terminal.
 3. Populate the wordlist
 
-  - Put usernames into `data/wordlist.txt`
+    - Put usernames into `data/wordlist.txt`
 4. Run the program
 
-  - Run `node main` in your terminal.
+    - Run `node main` in your terminal.
 
 ### Contributions
 ###### All contributions are accepted, simply open an Issue / Pull request.
