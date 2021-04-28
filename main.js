@@ -37,6 +37,10 @@ try {
       }
     });
 
+    S.on("error", e => {
+      Logger.error("scraper", e);
+    });
+
     S.once("finished", () => {
       Logger.warn("scraper", "Finished!")
     });

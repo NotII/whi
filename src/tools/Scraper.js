@@ -81,14 +81,17 @@ class Scraper extends EventEmitter {
          * image URLs and the current page as `page`
          */
         this.emit("images", {
-          images: await(Image.getImages(this.user, this.page)),
+          images: await Image.getImages(this.user, this.page),
           page: this.page
         });
       } catch(e) {
+
         /**
          * If `Image.getImages()` throws
-         * an error, we will emit it!
+         * an error, we will emit it and
+         * call `this.stop()`!
          */
+        this.stop();
         this.emit("error", e);
       }
 
