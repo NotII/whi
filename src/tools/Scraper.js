@@ -5,6 +5,7 @@
 
 // Dependencies
 const { EventEmitter } = require("events");
+const Util = require("../Util");
 
 // Utils
 const Image = require("../whi/Image");
@@ -111,6 +112,15 @@ class Scraper extends EventEmitter {
        * time we emit some images!
        */
       this.page++;
+
+      /**
+       * Sleep for 2500ms
+       * to prevent Discord
+       * from ratelimiting us.
+       * 
+       * TODO: Make this optional / configurable :)
+       */
+      await Util.sleep(2500);
     }
   }
 }
