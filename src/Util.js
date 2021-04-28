@@ -48,8 +48,8 @@ class Util {
 
     if(!scrape.user 
       || isNaN(scrape.page) 
-      || !scrape.webhook 
-      || scrape.webhook.indexOf("discord.com/api/webhooks") === -1
+      || typeof scrape.webhook == "undefined"
+      || scrape.webhook.filter(url => url.indexOf("discord.com/api/webhooks") === -1).length > 0
     ) throw `Invalid config! (type -> scrape)`;
 
     if(typeof(check.register) !== "boolean"
