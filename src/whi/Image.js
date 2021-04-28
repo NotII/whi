@@ -26,7 +26,7 @@ class Image {
     if(body.indexOf("superthumb") !== -1) {
       let matched = body.match(REGEX);  
       
-      if(matched && matched.length > 0) return matched;
+      if(matched && matched.length > 0) return Array.from(new Set(matched));
       return false;
     } else throw "Unable to fetch images!";
   }
