@@ -16,7 +16,8 @@ try {
   Util.parseConfig(config);
 
   if(config.mode == "scrape") {
-    const S = new Scraper(config.scrape.user, config.scrape.page, config.scrape.pages);
+    let S = new Scraper(config.scrape.user, config.scrape.page, config.scrape.pages),
+        w = 0;
 
     S.once("scraping", s => {
       Logger.warn("scraper", `Scraping ${s.user} | Pages -> ${s.page} - ${s.end}`);
@@ -25,10 +26,14 @@ try {
     S.on("images", async i => {
       Logger.info("scraper", `Scraped ${i.images.length} ${i.images.length === 1 ? "image" : "images"} from page ${i.page}`);
 
-      for(const c of Util.chunk(i.images)) if(await Discord.post(config.scrape.webhook[Math.floor(Math.random() * config.scrape.webhook.length)], c)) {
-        Logger.info("scraper", `Sent ${c.length} ${c.length === 1 ? "image" : "images"} to Discord!`);
-      } else {
-        Logger.warn("scraper", `Unable to log to Discord!`);
+      for(const c of Util.chunk(i.images)) {
+        if(w == config.scrape.webhook.length) w = 0;
+
+        if(await Discord.post(config.scrape.webhook[w++], c)) {
+          Logger.info("scraper", `Sent ${c.length} ${c.length === 1 ? "image" : "images"} to Discord!`);
+        } else {
+          Logger.warn("scraper", `Unable to log to Discord!`);
+        }
       }
     });
 
