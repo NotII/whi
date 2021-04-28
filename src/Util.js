@@ -115,6 +115,20 @@ class Util {
      */
     return arr;
   }
+
+  /**
+   * @param {Number} ms
+   * @returns {Promise} 
+   */
+  static sleep(ms = 1000) {
+    return new Promise(resolve => {
+      /**
+       * Set a timeout for `ms` that resolves
+       * the promise, usage: `await sleep(ms)`
+       */
+      setTimeout(resolve, ms);
+    });
+  }
 }
 
 module.exports = Util;
