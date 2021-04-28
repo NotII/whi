@@ -18,6 +18,10 @@ class Util {
    * @returns {String} 
    */
   static generateSignature(username, email) {
+    /**
+     * Create an MD5 with `username` + `email` + `secret` and digest it
+     * has hex and return.
+     */
     return crypto.createHash("md5").update(username + email + secret).digest("hex");
   }
 
@@ -25,6 +29,9 @@ class Util {
    * @returns {String}
    */
   static generateMail() {
+    /**
+     * Generate a random string and append `@foreskin.market` to the end
+     */
     return this.generateString(12) + "@foreskin.market";
   }
 
@@ -33,10 +40,22 @@ class Util {
    * @returns {String} 
    */
   static generateString(len) {
+    /**
+     * We create `charset` and `str`,
+     * `charset` contains all possible chars
+     * and `str` is an empty string
+     */
     let charset = "abcdefghijklmnopqrstuvwxyz", str = "";
 
+    /**
+     * Loop `len` times and append a random string
+     * from `charset` to `str`
+     */
     for(let i = 0; i < len; i++) str += charset[Math.floor(Math.random() * charset.length)];
 
+    /**
+     * Return `str`
+     */
     return str;
   }
 
@@ -44,8 +63,18 @@ class Util {
    * @param {Object} config 
    */
   static parseConfig({ mode, scrape, check }) {
+    /**
+     * If `modes` does not contain `mode`, throw an error
+     */
     if(modes.indexOf(mode.toLowerCase()) === -1) throw `Please provide a valid mode! (${modes.join(", ")})`;
 
+    /**
+     * If there is no `scrape.user` or `scrape.page`
+     * is not a number, or `scrape.pages` is not a number
+     * or `scrape.webhook` is undefined and any URL inside
+     * the `scrape.webhook` array doesn't contain "discord.com/api/webhooks"
+     * throw an error
+     */
     if(!scrape.user 
       || isNaN(scrape.page)
       || isNaN(scrape.pages) 
@@ -53,6 +82,11 @@ class Util {
       || scrape.webhook.filter(url => url.indexOf("discord.com/api/webhooks") === -1).length > 0
     ) throw `Invalid config! (type -> scrape)`;
 
+    /**
+     * If `check.register` is not true OR false,
+     * or there is no wordlist or
+     * there is no output, throw an error
+     */
     if(typeof(check.register) !== "boolean"
       || !check.wordlist
       || !check.output
@@ -66,11 +100,20 @@ class Util {
    * @returns {Object}
    */
   static chunk(array = [ ], size = 10) {
+    /**
+     * We create an empty array called `arr`
+     */
     let arr = [ ];
-  
-      for(let i = 0; i < array.length; i += size) arr.push(array.slice(i, i + size))
-  
-      return arr;
+    
+    /**
+     * Headache to comment, it just chunks the array
+     */
+    for(let i = 0; i < array.length; i += size) arr.push(array.slice(i, i + size))
+
+    /**
+     * Return `arr`
+     */
+    return arr;
   }
 }
 
