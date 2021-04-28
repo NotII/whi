@@ -47,7 +47,8 @@ class Util {
     if(modes.indexOf(mode.toLowerCase()) === -1) throw `Please provide a valid mode! (${modes.join(", ")})`;
 
     if(!scrape.user 
-      || isNaN(scrape.page) 
+      || isNaN(scrape.page)
+      || isNaN(scrape.pages) 
       || typeof scrape.webhook == "undefined"
       || scrape.webhook.filter(url => url.indexOf("discord.com/api/webhooks") === -1).length > 0
     ) throw `Invalid config! (type -> scrape)`;
