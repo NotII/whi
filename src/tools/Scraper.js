@@ -91,8 +91,8 @@ class Scraper extends EventEmitter {
          * an error, we will emit it and
          * call `this.stop()`!
          */
-        this.stop();
         this.emit("error", e);
+        this.stop();
       }
 
       /**
