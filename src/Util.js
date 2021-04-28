@@ -57,6 +57,14 @@ class Util {
       || !check.output
     ) throw `Invalid config! (type -> check)`; 
   }
+
+  static chunk(array = [ ], size = 10) {
+    let arr = [ ];
+  
+      for(let i = 0; i < array.length; i += size) arr.push(array.slice(i, i + size))
+  
+      return arr;
+  }
 }
 
 module.exports = Util;
