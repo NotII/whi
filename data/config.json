@@ -4,10 +4,7 @@
     "user": "sanrioly",
     "page": 0,
     "pages": 1000,
-    "webhook": [
-      "Webhook 1",
-      "Webhook 2"
-    ],
+    "webhook": "WEBHOOK HERE",
     "cookie": null
   },
   "check": {
