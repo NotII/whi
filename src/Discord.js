@@ -26,7 +26,7 @@ class Discord {
       },
       data: JSON.stringify({
         embeds: images.map(i => i = {
-          color: 11962342,
+          color: 3553599, // TODO: Make this configurable
           image: {
             url: i
           },
