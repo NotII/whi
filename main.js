@@ -4,54 +4,54 @@
  */
 
 // Utils
-const Logger = require("./src/Logger");
 const Util = require("./src/Util");
-const Scraper = require("./src/tools/Scraper");
+const Logger = require("./src/Logger");
 const Discord = require("./src/Discord");
+
+// Tools
+const Scraper = require("./src/tools/Scraper");
 
 // Variables
 const config = require("./data/config.json");
+const { scrape } = config;
 
 try {
   Util.parseConfig(config);
 
-  if(config.mode == "scrape") {
-    let S = new Scraper(config.scrape.user, config.scrape.page, config.scrape.pages, config.scrape.cookie || null),
-        w = 0, t = 0, s = 0;
+  if(config.mode === "scrape") {
+    let S = new Scraper(
+      scrape.user,
+      scrape.page,
+      scrape.pages,
+      scrape.cookie
+    ), total = 0, sent = 0;
 
-    S.once("scraping", s => {
-      Logger.warn("scraper", `Scraping ${s.user} | Pages -> ${s.page} - ${s.end}`);
-    });
 
-    S.on("images", async i => {
-      t += i.images.length;
+    S.once("scraping", scraping => Logger.info("scraper", `Scraping ${scraping.user} | Pages -> ${scraping.page} to ${scraping.end}!`));
 
-      Logger.info("scraper", `Scraped ${i.images.length} ${i.images.length === 1 ? "image" : "images"} from page ${i.page}`);
+    S.on("images", async scraped => {
+      let { images, page } = scraped;
 
-      for(const c of Util.chunk(i.images)) {
-        if(w == config.scrape.webhook.length) w = 0;
+      Logger.info("scraper", `Scraped ${images.length} ${images.length === 1 ? "image" : "images"}! (Page -> ${page})`);
 
-        if(await Discord.post(config.scrape.webhook[w++], c)) {
-          s += c.length;
+      for(const chunk of Util.chunk(images)) {
+        total += images.length;
 
-          Logger.info("scraper", `Sent ${c.length} ${c.length === 1 ? "image" : "images"} to Discord! (Stats -> ${s}/${t})`);
-        } else {
-          Logger.warn("scraper", `Unable to log to Discord!`);
-        }
+        if(await Discord.post(scrape.webhook, chunk)) {
+          sent += chunk.length;
+
+          Logger.info("scraper", `Logged ${chunk.length} ${chunk.length === 0 ? "image" : "images"} to Discord!`);
+        } else Logger.warn("scraper", `Unable to log ${chunk.length} ${chunk.length === 0 ? "image" : "images"} to Discord!`);
       }
     });
 
-    S.on("error", e => {
-      Logger.error("scraper", e);
-    });
+    S.on("error", error => Logger.error("scraper", error));
 
-    S.once("finished", () => {
-      Logger.warn("scraper", "Finished!")
-    });
+    S.once("finished", () => Logger.info("scraper", `Finished scraping ${scrape.user}! (${total}/${sent})`));
 
     S.scrape();
   } else {
-    Logger.error("checker", "Support soon!");
+
   }
 } catch(e) {
   Logger.error("main", e);
