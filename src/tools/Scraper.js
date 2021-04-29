@@ -31,6 +31,8 @@ class Scraper extends EventEmitter {
     this.page = page;
     this.end = (page + pages) > 1000 ? 1000 : page + pages;
 
+    this.sleep = 2500;
+
     /**
      * Set `this.scraping` to false by default.
      */
@@ -93,7 +95,7 @@ class Scraper extends EventEmitter {
          * call `this.stop()`!
          */
         this.emit("error", e);
-        this.stop();
+        // this.stop();
       }
 
       /**
@@ -114,14 +116,18 @@ class Scraper extends EventEmitter {
       this.page++;
 
       /**
-       * Sleep for 2500ms
+       * Sleep for `this.sleep`ms
        * to prevent Discord
        * from ratelimiting us.
        * 
        * TODO: Make this optional / configurable :)
        */
-      await Util.sleep(2500);
+      await Util.sleep(this.sleep);
     }
+  }
+
+  setSleep(ms) {
+    this.sleep = ms;
   }
 }
 
