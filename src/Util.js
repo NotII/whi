@@ -71,15 +71,12 @@ class Util {
     /**
      * If there is no `scrape.user` or `scrape.page`
      * is not a number, or `scrape.pages` is not a number
-     * or `scrape.webhook` is undefined and any URL inside
-     * the `scrape.webhook` array doesn't contain "discord.com/api/webhooks"
-     * throw an error
+     * or `scrape.webhook` is undefined throw an error
      */
     if(!scrape.user 
       || isNaN(scrape.page)
       || isNaN(scrape.pages) 
-      || typeof scrape.webhook == "undefined"
-      || scrape.webhook.filter(url => url.indexOf("discord.com/api/webhooks") === -1).length > 0
+      || !scrape.webhook
     ) throw `Invalid config! (type -> scrape)`;
 
     /**
