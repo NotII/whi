@@ -16,7 +16,7 @@ try {
   Util.parseConfig(config);
 
   if(config.mode == "scrape") {
-    let S = new Scraper(config.scrape.user, config.scrape.page, config.scrape.pages),
+    let S = new Scraper(config.scrape.user, config.scrape.page, config.scrape.pages, config.scrape.cookie || null),
         w = 0, t = 0, s = 0;
 
     S.once("scraping", s => {

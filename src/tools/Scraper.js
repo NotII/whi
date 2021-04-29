@@ -17,7 +17,7 @@ class Scraper extends EventEmitter {
    * @param {String|Number} page 
    * @param {String|Number} pages 
    */
-  constructor(user, page = 0, pages = 1000) {
+  constructor(user, page = 0, pages = 1000, cookie = null) {
     /**
      * We call `super()` so we can access functions
      * from `EventEmitter`
@@ -29,6 +29,7 @@ class Scraper extends EventEmitter {
      */
     this.user = user;
     this.page = page;
+    this.cookie = cookie;
     this.end = (page + pages) > 1000 ? 1000 : page + pages;
 
     this.sleep = 1;
@@ -94,7 +95,7 @@ class Scraper extends EventEmitter {
          * image URLs and the current page as `page`
          */
         this.emit("images", {
-          images: await Image.getImages(this.user, this.page),
+          images: await Image.getImages(this.user, this.page, this.cookie),
           page: this.page
         });
       } catch(e) {
@@ -105,7 +106,7 @@ class Scraper extends EventEmitter {
          * call `this.stop()`!
          */
         this.emit("error", e);
-        // this.stop();
+        this.stop();
       }
 
       /**
