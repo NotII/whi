@@ -49,7 +49,7 @@ try {
 
     S.scrape();
   } else {
-
+    Logger.error("checker", "Soon :)")
   }
 } catch(e) {
   Logger.error("main", e);
