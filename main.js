@@ -31,16 +31,14 @@ try {
 
     S.on("images", async scraped => {
       let { images, page } = scraped;
+      total += images.length;
 
       Logger.info("scraper", `Scraped ${images.length} ${images.length === 1 ? "image" : "images"}! (Page -> ${page})`);
-
       for(const chunk of Util.chunk(images)) {
-        total += images.length;
-
         if(await Discord.post(scrape.webhook, chunk)) {
           sent += chunk.length;
 
-          Logger.info("scraper", `Logged ${chunk.length} ${chunk.length === 0 ? "image" : "images"} to Discord!`);
+          Logger.info("scraper", `Logged ${chunk.length} ${chunk.length === 0 ? "image" : "images"} to Discord! (Sent -> ${sent}/${total})`);
         } else Logger.warn("scraper", `Unable to log ${chunk.length} ${chunk.length === 0 ? "image" : "images"} to Discord!`);
       }
     });
