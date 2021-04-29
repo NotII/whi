@@ -17,13 +17,17 @@ class Image {
    * @param {Number|String} page 
    * @returns {Promise<Object>}
    */
-  static async getImages(username, page = 0) {
+  static async getImages(username, page = 0, cookie = null) {
     /**
      * Make a GET request to `BASE_URL`/`username`?page=`page`
      * and store the body in a variable called `body`
      */
-    let req = await(await p(`${BASE_URL}/${username}?page=${page}`)),
-        body = req.body.toString();
+    let req = await(await p({url:
+      `${BASE_URL}/${username}?page=${page}`,
+      headers: {
+        "Cookie": (cookie ? `login_token=${cookie}` : null)
+      }
+    })), body = req.body.toString();
 
     /**
      * If the Status is 302: Found Redirect, this means
