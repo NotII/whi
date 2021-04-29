@@ -31,7 +31,7 @@ class Scraper extends EventEmitter {
     this.page = page;
     this.end = (page + pages) > 1000 ? 1000 : page + pages;
 
-    this.sleep = 2500;
+    this.sleep = 1;
 
     /**
      * Set `this.scraping` to false by default.
@@ -74,6 +74,16 @@ class Scraper extends EventEmitter {
      * we will run all code in the scope
      */
     while(this.scraping) {
+      /**
+       * Using modulus, we check if
+       * `this.page` is a multiple of 10
+       * if so, we set the sleep to 10000ms
+       * 
+       * else, we set it back to 1ms (basically, no sleep)
+       */
+      if((this.page % 10) === 0) this.setSleep(10000);
+      else this.setSleep(1);
+
       /**
        * Call `try` here incase the `await`
        * throws an error!
@@ -126,6 +136,9 @@ class Scraper extends EventEmitter {
     }
   }
 
+  /**
+   * @param {Number} ms 
+   */
   setSleep(ms) {
     this.sleep = ms;
   }
